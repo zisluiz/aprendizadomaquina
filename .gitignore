@@ -1,0 +1,7 @@
+/target/
+resultados-staff.csv
+*.csv
+.settings/org.eclipse.jdt.core.prefs
+*.prefs
+.project
+.classpath
