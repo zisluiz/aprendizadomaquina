@@ -51,6 +51,14 @@ public class Categoria {
 		return ocorrencias;
 	}
 	
+	public int getTotalPaginas() {
+		int totalPaginas = 0;
+		for (Universidade universidade : getUniversidades())
+			totalPaginas += universidade.getPaginas().size();
+		
+		return totalPaginas;
+	}	
+	
 	public List<Universidade> getUniversidades() {
 		return universidades;
 	}

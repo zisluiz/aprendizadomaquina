@@ -3,6 +3,7 @@ package preprocessamento;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,31 +19,29 @@ import preprocessamento.model.Universidade;
 public class PreProcessamento {
 	private final static String diretorio = "webkb/";
 	private final static List<String> palavrasParaIgnorar = Arrays.asList("the", "and", "of", "to", "in", "for", "a",
-			"is", "the", "on", ".", ",", ":", "no", "yes", "but", "any", "do", "of", "is", "[", "]", "a", "as", "if", "by", "are", "|", "/");
-	private DataMining dataMining = new DataMining();
+			"is", "the", "on", ".", ",", ":", "no", "yes", "but", "any", "do", "of", "is", "[", "]", "a", "as", "if",
+			"by", "are", "|", "/");
 	private List<CategoriaEnum> categoriasParaProcessar;
+	private List<Categoria> categorias = new ArrayList<>();
 
-	public DataMining doDataMining() throws IOException, URISyntaxException {
-
+	public void doDataMining() throws IOException, URISyntaxException {
 		File[] categorias = new File(ClassLoader.getSystemResource(diretorio).toURI()).listFiles();
 
 		for (File categoria : categorias) {
 			readUniversidades(categoria);
 		}
-
-		return dataMining;
 	}
 
-	public DataMining doDataMining(List<CategoriaEnum> categoriasParaProcessar) throws IOException, URISyntaxException {
+	public void doDataMining(List<CategoriaEnum> categoriasParaProcessar) throws IOException, URISyntaxException {
 		this.categoriasParaProcessar = categoriasParaProcessar;
-		return doDataMining();
+		doDataMining();
 	}
 
 	private void readUniversidades(File categoriaDirectory) throws IOException {
 		CategoriaEnum categoriaEnum = CategoriaEnum.valueOf(categoriaDirectory.getName());
 		if (categoriasParaProcessar == null || categoriasParaProcessar.contains(categoriaEnum)) {
 			Categoria categoria = new Categoria(categoriaEnum);
-			dataMining.add(categoria);
+			add(categoria);
 
 			File[] universidades = categoriaDirectory.listFiles();
 
@@ -83,21 +82,41 @@ public class PreProcessamento {
 
 	private String filterWord(String word) {
 		if (!word.isEmpty()) {
-			if (word.endsWith(".") || word.endsWith(",") || word.endsWith(":") || word.endsWith("?") || word.endsWith(")"))
+			while (word.length() > 0 && (word.endsWith(".") || word.endsWith(",") || word.endsWith(":")
+					|| word.endsWith("?") || word.endsWith(")")))
 				word = word.substring(0, word.length() - 1);
-	
-			if (!word.isEmpty())
-				if (word.charAt(0) == '.' || word.charAt(0) == ',' || word.charAt(0) == ':' || word.charAt(0) == '?'
-						|| word.charAt(0) == '(')
-					word = word.substring(1, word.length());
+
+			while (word.length() > 0 && (word.charAt(0) == '.' || word.charAt(0) == ',' || word.charAt(0) == ':'
+					|| word.charAt(0) == '?' || word.charAt(0) == '('))
+				word = word.substring(1, word.length());
 			
+			if (!word.matches(".*(\\w).*") || (word.matches("\\d*") && word.length() == 1))
+				word = "";
+
 			if (!word.isEmpty())
 				word = word.toLowerCase();
 			
 			if (!palavrasParaIgnorar.contains(word))
 				return word;
 		}
-		
+
 		return null;
 	}
+	
+	public void add(Categoria categoria) {
+		categorias.add(categoria);
+	}
+	
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public int getTotalPaginas() {
+		int totalPaginas = 0;
+		for (Categoria categoria : categorias)
+			totalPaginas += categoria.getTotalPaginas();
+		
+		return totalPaginas;
+	}	
+	
 }
