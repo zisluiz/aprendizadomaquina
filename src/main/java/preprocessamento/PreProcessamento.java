@@ -91,7 +91,7 @@ public class PreProcessamento {
 				word = word.substring(1, word.length());
 			
 			if (!word.matches(".*(\\w).*") || (word.matches("\\d*") && word.length() == 1))
-				word = "";
+				return null;
 
 			if (!word.isEmpty())
 				word = word.toLowerCase();

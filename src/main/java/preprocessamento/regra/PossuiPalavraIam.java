@@ -16,7 +16,7 @@ public class PossuiPalavraIam implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getOcorrenciasDePalavras().containsKey("i'm") || pagina.getOcorrenciasDePalavras().containsKey("i am") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("i'm") || (pagina.getOcorrenciasDePalavras().containsKey("i") && pagina.getOcorrenciasDePalavras().containsKey("am")) ? "s" : "n";
 	}
 
 }

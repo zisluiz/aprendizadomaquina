@@ -2,11 +2,11 @@ package preprocessamento.regra;
 
 import preprocessamento.model.Pagina;
 
-public class PossuiPalavraCourse implements Regra {
+public class PossuiPalavraResearch implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraCourse";
+		return "possuiPalavraResearch";
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class PossuiPalavraCourse implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getOcorrenciasDePalavras().containsKey("course") || pagina.getOcorrenciasDePalavras().containsKey("courses") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("research") ? "s" : "n";
 	}
 
 }
