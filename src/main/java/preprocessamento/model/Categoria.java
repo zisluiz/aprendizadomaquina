@@ -7,10 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.ComparableComparator;
-import org.apache.commons.collections.comparators.ReverseComparator;
-
 public class Categoria {
 	private CategoriaEnum tipoCategoria;
 	private Map<String, Integer> ocorrenciasDePalavras = new HashMap<>();
@@ -44,8 +40,7 @@ public class Categoria {
 			for (String palavra : palavras)
 				ocorrencias.add(new Ocorrencia(palavra, ocorrenciasDePalavras.get(palavra)));
 
-			BeanComparator fieldComparator = new BeanComparator("quantidade", new ReverseComparator(new ComparableComparator()));
-			Collections.sort(ocorrencias, fieldComparator);
+			Collections.sort(ocorrencias);
 		}
 
 		return ocorrencias;
@@ -73,5 +68,13 @@ public class Categoria {
 	
 	public CategoriaEnum getTipoCategoria() {
 		return tipoCategoria;
+	}
+
+	public void putOcorrencia(String word, Integer quantidade) {
+		Integer quant = ocorrenciasDePalavras.get(word);
+		if (quant == null)
+			ocorrenciasDePalavras.put(word, quantidade);
+		else 
+			ocorrenciasDePalavras.put(word, quant + quantidade);
 	}
 }
