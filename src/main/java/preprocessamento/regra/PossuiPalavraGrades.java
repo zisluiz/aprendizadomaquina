@@ -6,7 +6,7 @@ public class PossuiPalavraGrades implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraGrade";
+		return "possuiPalavraGradeOuGrades";
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class NomeArquivoPossuiPalavraCSMaisNumero implements Regra {
 
 	@Override
 	public String getNome() {
-		return "nomeArquivoPossuiPalavraCSMaisNumero";
+		return "nomeArquivoPossuiPalavraCSMaisUmNumero";
 	}
 
 	@Override

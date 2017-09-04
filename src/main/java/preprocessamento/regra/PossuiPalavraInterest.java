@@ -6,7 +6,7 @@ public class PossuiPalavraInterest implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraInterest";
+		return "possuiPalavraInterestOuInterests";
 	}
 
 	@Override

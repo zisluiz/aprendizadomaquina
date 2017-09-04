@@ -16,7 +16,7 @@ public class PossuiPalavraCurrently implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getOcorrenciasDePalavras().containsKey("currently") || pagina.getOcorrenciasDePalavras().containsKey("i am") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("currently") ? "s" : "n";
 	}
 
 }

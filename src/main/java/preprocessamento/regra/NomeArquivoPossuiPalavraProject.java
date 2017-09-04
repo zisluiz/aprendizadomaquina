@@ -8,7 +8,7 @@ public class NomeArquivoPossuiPalavraProject implements Regra {
 
 	@Override
 	public String getNome() {
-		return "nomeArquivoPossuiPalavraProject";
+		return "nomeArquivoPossuiPalavraProjectOuProjects";
 	}
 
 	@Override

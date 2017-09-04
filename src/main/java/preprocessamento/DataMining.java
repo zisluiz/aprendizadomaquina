@@ -59,9 +59,7 @@ public class DataMining {
 
 	private static List<Regra> findRegras() throws InstantiationException, IllegalAccessException {
 		Reflections reflections = new Reflections("preprocessamento.regra");
-
 		  Set<Class<? extends Regra>> subTypes = reflections.getSubTypesOf(Regra.class);
-		  
 		  List<Regra> regras = new ArrayList<>();
 		  
 		  for (Class<? extends Regra> subType : subTypes) {
@@ -70,5 +68,4 @@ public class DataMining {
 		  
 		  return regras;
 	}	
-
 }

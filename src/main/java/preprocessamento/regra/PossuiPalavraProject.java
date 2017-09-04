@@ -6,7 +6,7 @@ public class PossuiPalavraProject implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraProject";
+		return "possuiPalavraProjectOuProjects";
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class PossuiPalavraProject implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getOcorrenciasDePalavras().containsKey("project") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("project") || pagina.getOcorrenciasDePalavras().containsKey("projects") ? "s" : "n";
 	}
 
 }

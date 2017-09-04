@@ -6,7 +6,7 @@ public class PossuiPalavraEmail implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraEmail";
+		return "possuiPalavraE-mailOuEmail";
 	}
 
 	@Override
