@@ -16,8 +16,8 @@ public class Application {
 		try {
 			PreProcessamento preProcessamento = new PreProcessamento();
 			preProcessamento.doDataMining();
-			printResultsByCategoria(preProcessamento);
-			printResultsBySite(preProcessamento);
+			//printResultsByCategoria(preProcessamento);
+			//printResultsBySite(preProcessamento);
 			new DataMining().generateDataMiningFile(preProcessamento);
 		} catch (IOException | URISyntaxException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();

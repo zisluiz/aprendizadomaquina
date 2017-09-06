@@ -80,13 +80,20 @@ public class PreProcessamento {
 
 	private void parseWords(Categoria categoria, Pagina pagina, Elements elements) {
 		String[] words = elements.text().split(" ");
-
+		String wordAnterior = null;
 		for (String word : words) {
 			word = word.trim();
 			word = filterWord(word);
 			if (word != null) {
 				categoria.addOcorrencia(word);
 				pagina.addOcorrencia(word);
+				
+				if (wordAnterior != null && wordAnterior.equals("i") && word.equals("am")) {
+					categoria.addOcorrencia("#i_am");
+					pagina.addOcorrencia("#i_am");					
+				}
+				
+				wordAnterior = word;
 			}
 		}
 	}

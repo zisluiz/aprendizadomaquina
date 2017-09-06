@@ -63,7 +63,9 @@ public class DataMining {
 		  List<Regra> regras = new ArrayList<>();
 		  
 		  for (Class<? extends Regra> subType : subTypes) {
-			  regras.add(subType.newInstance());
+			  Regra regra = subType.newInstance();
+			  if (regra.ative())
+				  regras.add(regra);
 		  }
 		  
 		  return regras;

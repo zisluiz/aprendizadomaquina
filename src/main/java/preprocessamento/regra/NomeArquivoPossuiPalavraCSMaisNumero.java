@@ -16,7 +16,7 @@ public class NomeArquivoPossuiPalavraCSMaisNumero implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getNomeArquivo().matches(".*(cs|CS)[0-9].*") ? "s" : "n";
+		return pagina.getNomeArquivo().toLowerCase().matches(".*(cs)[0-9].*") ? "s" : "n";
 	}
 
 }

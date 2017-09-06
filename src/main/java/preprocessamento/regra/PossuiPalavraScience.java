@@ -18,5 +18,4 @@ public class PossuiPalavraScience implements Regra {
 	public String getValor(Pagina pagina) {
 		return pagina.getOcorrenciasDePalavras().containsKey("science") ? "s" : "n";
 	}
-
 }

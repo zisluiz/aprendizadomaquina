@@ -1,14 +1,12 @@
 package preprocessamento.regra;
 
-import org.apache.commons.lang3.StringUtils;
-
 import preprocessamento.model.Pagina;
 
-public class NomeArquivoPossuiPalavraCourse implements Regra {
+public class PossuiPalavraSome implements Regra {
 
 	@Override
 	public String getNome() {
-		return "nomeArquivoPossuiPalavraCourse";
+		return "possuiPalavraSome";
 	}
 
 	@Override
@@ -18,6 +16,11 @@ public class NomeArquivoPossuiPalavraCourse implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return StringUtils.containsIgnoreCase(pagina.getNomeArquivo(), "course") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("some") ? "s" : "n";
+	}
+
+	@Override
+	public boolean ative() {
+		return false;
 	}
 }

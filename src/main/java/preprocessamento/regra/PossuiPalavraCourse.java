@@ -6,7 +6,7 @@ public class PossuiPalavraCourse implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraCourseOuCourses";
+		return "possuiPalavraCourse";
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class PossuiPalavraCourse implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getOcorrenciasDePalavras().containsKey("course") || pagina.getOcorrenciasDePalavras().containsKey("courses") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("course") ? "s" : "n";
 	}
 
 }

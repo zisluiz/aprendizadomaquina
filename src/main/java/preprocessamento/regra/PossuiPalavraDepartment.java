@@ -6,7 +6,7 @@ public class PossuiPalavraDepartment implements Regra {
 
 	@Override
 	public String getNome() {
-		return "possuiPalavraDepartment";
+		return "possuiPalavraDepartmentOuDepartments";
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class PossuiPalavraDepartment implements Regra {
 
 	@Override
 	public String getValor(Pagina pagina) {
-		return pagina.getOcorrenciasDePalavras().containsKey("department") ? "s" : "n";
+		return pagina.getOcorrenciasDePalavras().containsKey("department") || pagina.getOcorrenciasDePalavras().containsKey("departments") || pagina.getOcorrenciasDePalavras().containsKey("department's") ? "s" : "n";
 	}
 
 }
