@@ -7,4 +7,7 @@ import preprocessamento.model.Pagina;
 public interface RegraTag {
 	public String getNome();
 	public Integer getValor(Elements elements, Pagina pagina);
+	public default boolean ative() {
+		return true;
+	}
 }

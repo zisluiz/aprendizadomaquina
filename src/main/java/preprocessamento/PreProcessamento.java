@@ -75,8 +75,21 @@ public class PreProcessamento {
 			throws InstantiationException, IllegalAccessException {
 		Elements elements = doc.getAllElements().get(1).children();
 		parseWords(categoria, pagina, elements);
+		parseTitle(categoria, pagina, elements);
 		parseTags(categoria, pagina, elements);
 	}
+	
+	private void parseTitle(Categoria categoria, Pagina pagina, Elements elements) {
+		String[] words = elements.select("title").text().split(" ");
+		for (String word : words) {
+			word = word.trim();
+			word = filterWord(word);
+			if (word != null) {
+				categoria.addOcorrencia("!"+word);
+				pagina.addOcorrencia("!"+word);
+			}
+		}
+	}	
 
 	private void parseWords(Categoria categoria, Pagina pagina, Elements elements) {
 		String[] words = elements.text().split(" ");
@@ -114,7 +127,7 @@ public class PreProcessamento {
 			if (!word.isEmpty())
 				word = word.toLowerCase();
 
-			if (!palavrasParaIgnorar.contains(word))
+			if (!word.isEmpty() && !palavrasParaIgnorar.contains(word))
 				return word;
 		}
 
@@ -135,7 +148,9 @@ public class PreProcessamento {
 		List<RegraTag> regras = new ArrayList<>();
 
 		for (Class<? extends RegraTag> subType : subTypes) {
-			regras.add(subType.newInstance());
+			RegraTag regraTag = subType.newInstance();
+			if (regraTag.ative())
+				regras.add(regraTag);
 		}
 
 		return regras;

@@ -10,6 +10,7 @@ import java.util.Set;
 public class Categoria {
 	private CategoriaEnum tipoCategoria;
 	private Map<String, Integer> ocorrenciasDePalavras = new HashMap<>();
+	private Map<String, Integer> ocorrenciasDePalavrasQtdeMaior5;
 	private List<Universidade> universidades = new ArrayList<>();
 	private List<Ocorrencia> ocorrencias;
 
@@ -36,9 +37,9 @@ public class Categoria {
 	public List<Ocorrencia> getOcorrencias() {
 		if (ocorrencias == null) {
 			ocorrencias = new ArrayList<>();
-			Set<String> palavras = ocorrenciasDePalavras.keySet();
+			Set<String> palavras = getOcorrenciasDePalavras().keySet();
 			for (String palavra : palavras)
-				ocorrencias.add(new Ocorrencia(palavra, ocorrenciasDePalavras.get(palavra)));
+				ocorrencias.add(new Ocorrencia(palavra, getOcorrenciasDePalavras().get(palavra)));
 
 			Collections.sort(ocorrencias);
 		}
@@ -63,7 +64,15 @@ public class Categoria {
 	}
 	
 	public Map<String, Integer> getOcorrenciasDePalavras() {
-		return ocorrenciasDePalavras;
+		if (ocorrenciasDePalavrasQtdeMaior5 == null) {
+			ocorrenciasDePalavrasQtdeMaior5 = new HashMap<>();
+			for (String key : ocorrenciasDePalavras.keySet())
+				if (ocorrenciasDePalavras.get(key) > 5)
+					ocorrenciasDePalavrasQtdeMaior5.put(key, ocorrenciasDePalavras.get(key));
+			
+		}
+		
+		return ocorrenciasDePalavrasQtdeMaior5;
 	}
 	
 	public CategoriaEnum getTipoCategoria() {

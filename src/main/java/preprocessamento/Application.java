@@ -16,8 +16,8 @@ public class Application {
 		try {
 			PreProcessamento preProcessamento = new PreProcessamento();
 			preProcessamento.doDataMining();
-			//printResultsByCategoria(preProcessamento);
-			//printResultsBySite(preProcessamento);
+			printResultsByCategoria(preProcessamento);
+			printResultsBySite(preProcessamento);
 			new DataMining().generateDataMiningFile(preProcessamento);
 		} catch (IOException | URISyntaxException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
@@ -27,7 +27,7 @@ public class Application {
 	private static void printResultsByCategoria(PreProcessamento preProcessamento) throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter("resultados.csv"), ';','"');
 		
-		int nrLinha = -1;
+		int nrLinha = -2;
 		boolean existeOcorrencia = false;
 		do {
 			String[] linha = null;
@@ -35,7 +35,7 @@ public class Application {
 			int numeroColunas = preProcessamento.getCategorias().size() * 2;
 			linha = new String[numeroColunas];
 			
-			if (nrLinha == -1) {
+			if (nrLinha == -2) {
 				int nrCategoria = 1;
 				for (Categoria categoria : preProcessamento.getCategorias()) {
 					linha[nrCategoria-1] = categoria.getTipoCategoria().toString();
@@ -45,8 +45,19 @@ public class Application {
 				
 				writer.writeNext(linha);
 				existeOcorrencia = true;
-				nrLinha = 0;
-			} else {
+				nrLinha++;
+			}  else if (nrLinha == -1) {
+				int nrCategoria = 1;
+				for (Categoria categoria : preProcessamento.getCategorias()) {
+					linha[nrCategoria-1] = "#qtde_sites";
+					linha[nrCategoria] = categoria.getTotalPaginas()+"";
+					nrCategoria = nrCategoria + 2;
+				}				
+				
+				writer.writeNext(linha);
+				existeOcorrencia = true;
+				nrLinha++;
+			}else {
 				int nrCategoria = 1;
 				for (Categoria categoria : preProcessamento.getCategorias()) {
 					Ocorrencia ocorrencia = null;
@@ -55,9 +66,9 @@ public class Application {
 						existeOcorrencia = true;
 					}
 					
-					if (ocorrencia != null && ocorrencia.getQuantidade() > 5) {
-						linha[nrCategoria-1] = ocorrencia != null ? ocorrencia.getPalavra() : "";
-						linha[nrCategoria] = ocorrencia != null ? ocorrencia.getQuantidade()+"" : "";
+					if (ocorrencia != null) {
+						linha[nrCategoria-1] = ocorrencia.getPalavra();
+						linha[nrCategoria] = ocorrencia.getQuantidade()+"";
 					}
 					nrCategoria = nrCategoria + 2;
 				}
